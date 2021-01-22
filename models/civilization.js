@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 }
-
 civilization.init({
     id: integer,
     civilId: integer

@@ -16,3 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 }
+userCivs.init({
+    id: integer,
+    favCivilId: integer
+})
