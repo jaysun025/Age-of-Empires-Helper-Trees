@@ -1,11 +1,9 @@
 'use strict';
-const bcrypt = require('bcrypt')
-
 const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class user extends Model {
+  class techUnit extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -15,11 +13,11 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-}
-
-techUnit.init({
-    id: integer,
-    favUnitId: integer,
-    favTechId: integer,
-    civilizationId: integer
-})
+  techUnit.init({
+    civilizatonId: DataTypes.INTEGER
+  }, {
+    sequelize,
+    modelName: 'techUnit',
+  });
+  return techUnit;
+};
