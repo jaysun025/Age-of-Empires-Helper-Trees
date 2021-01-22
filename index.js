@@ -4,6 +4,8 @@ const layouts = require('express-ejs-layouts')
 const app = express()
 const session = require('express-session')
 const passport = require('./config/ppConfig.js')
+const flash = require('connect-flash')
+const isLoggedIn = require('./middlewear/isLoggedIn.js')
 
 app.set('view engine', 'ejs')
 app.use(layouts)
@@ -23,8 +25,12 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
+// flash middlewear flash goes before sessions
+app.use(flash())
+
 // CUSTOM MIDDLEWEAR
 app.use((req, res, next) => {
+    res.locals.alerts = req.flash()
     res.locals.currentUser = req.user
     next() // move on to the next piece of middlewear
 })
@@ -32,15 +38,15 @@ app.use((req, res, next) => {
 app.use('/auth', require('./controllers/auth.js'))
 
 app.get('/', (req, res) => {
-    if(req.user) {
-        res.send(`req.user: ${req.user.name}`)
-    }else{
-        res.send('no user currently logged in')
-    }
+        res.render('home')
 })
 
-app.get('/profile', (req, res) => {
+app.get('/profile', isLoggedIn, (req, res) => {
     res.render('profile')
+})
+
+app.get('*', (req, res) => {
+    res.render('404.ejs')
 })
 
 

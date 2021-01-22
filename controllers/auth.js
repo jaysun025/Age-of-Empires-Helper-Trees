@@ -19,16 +19,22 @@ router.post('/signup',  (req, res) => {
             password: req.body.password
         }
     })
-    .then(([user, wasCreated]) => {
+    .then(([createdUser, wasCreated]) => {
         if(wasCreated){
-            passport.authenticate('local', {successRedirect: '/'})(req, res)
-            res.send(`Created a new user profile for ${user.email}`)
+            passport.authenticate('local', {
+                successFlash: 'Account created as user loggin in'
+            })(req, res)
         } else {
-            console.log('An account with that email alread exists did you mean tolog in??')
+            req.flash('error', 'An account associate with that email address alread exists! did you mean to log in?')
             res.redirect('/auth/login')
         }
     })
+    .catch(err => {
+        req.flash('error', err.message)
+        res.redirect('/auth/signup')
+    })
 })
+
 
 router.get('/login',  (req, res) => {
     res.render('auth/login.ejs')
@@ -36,11 +42,14 @@ router.get('/login',  (req, res) => {
 
 router.post('/login', passport.authenticate('local', {
     failureRedirect: '/auth,login',
-    successRedirect: '/' 
+    successRedirect: '/',
+    successFlash: 'You are now logged in',
+    failureFlash: 'Invalid email or password'
 }))
 
 router.get('/logout',  (req, res) => {
-    res.send("this is our exit point")
+    req.logout()
+    res.redirect('/')
 })
 
 module.exports = router
