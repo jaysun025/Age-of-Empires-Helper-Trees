@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      models.techUnit.hasMany(models.tech)
+      models.techUnit.hasMany(models.unit)
+      models.techUnit.belongsTo(models.civilization)
     }
   };
   techUnit.init({
