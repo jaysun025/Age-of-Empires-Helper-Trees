@@ -1,16 +1,16 @@
 {
   "development": {
-    "database": "age-of-empire-helper-tree_development",
+    "database": "aoe_helper_tree_development",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "database": "age-of-empire-helper-tree_test",
+    "database": "aoe_helper_tree_test",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
-    "database": "age-of-empire-helper-tree_production",
+    "database": "aoe_helper_tree_production",
     "host": "127.0.0.1",
     "dialect": "postgres"
   }

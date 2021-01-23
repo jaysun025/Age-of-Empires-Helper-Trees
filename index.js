@@ -6,6 +6,7 @@ const session = require('express-session')
 const passport = require('./config/ppConfig.js')
 const flash = require('connect-flash')
 const isLoggedIn = require('./middlewear/isLoggedIn.js')
+const axios = require('axios')
 
 app.set('view engine', 'ejs')
 app.use(layouts)
@@ -45,8 +46,15 @@ app.get('/profile', isLoggedIn, (req, res) => {
     res.render('profile')
 })
 
-app.get('/profile/civilizatoin', (req, res) => {
-    let civilizatoinUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/civilization/1'
+app.get('/profile/civilization', (req, res) => {
+    let civilizationUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/civilization/1'
+    axios.get(civilizationUrl)
+    .then(data => {
+        console.log(data)
+    })
+    .catch(error => {
+        console.log(error)
+    })
 })
 
 app.get('*', (req, res) => {
@@ -54,6 +62,8 @@ app.get('*', (req, res) => {
 })
 
 
-app.listen(process.env.PORT, () => {
+const server = app.listen(process.env.PORT, () => {
     console.log(`fireing off at port ${process.env.PORT}`)
 })
+
+module.exports = server
