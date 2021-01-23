@@ -43,7 +43,6 @@ router.post('/login', passport.authenticate('local', {
     failureFlash: 'Invalid email or password'
 }))
 router.get('/profile', isLoggedIn, (req, res) => {
-    console.log(req)
     res.render('profile')
 })
 
