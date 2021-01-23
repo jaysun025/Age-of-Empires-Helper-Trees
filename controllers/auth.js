@@ -37,14 +37,13 @@ router.get('/login',  (req, res) => {
 })
 router.post('/login', passport.authenticate('local', {
     failureRedirect: '/auth,login',
-    successRedirect: '/profile',
+    successRedirect: '/auth/profile',
     successFlash: 'You are now logged in',
     failureFlash: 'Invalid email or password'
 }))
-router.get('/auth/profile', (req, res) => {
-    req.render('/profile.ejs')
-    req.profile()
-    res.redirect('/')
+router.get('/profile', (req, res) => {
+    console.log('nenondifa')
+    res.render('profile')
 })
 
 

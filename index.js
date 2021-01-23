@@ -42,9 +42,6 @@ app.get('/', (req, res) => {
         res.render('home')
 })
 
-app.get('/profile', isLoggedIn, (req, res) => {
-    res.render('profile')
-})
 
 app.get('/profile/civilization', (req, res) => {
     let civilizationUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/civilization/1'
