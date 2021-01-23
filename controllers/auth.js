@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const db = require('../models')
 const passport = require('../config/ppConfig.js')
+const isLoggedIn = require('../middlewear/isLoggedIn')
 router.get('/signup',  (req, res) => {
     res.render('auth/signup.ejs')
 })
@@ -41,13 +42,13 @@ router.post('/login', passport.authenticate('local', {
     successFlash: 'You are now logged in',
     failureFlash: 'Invalid email or password'
 }))
-router.get('/profile', (req, res) => {
-    console.log('nenondifa')
+router.get('/profile', isLoggedIn, (req, res) => {
+    console.log(req)
     res.render('profile')
 })
 
 
-router.get('/logout',  (req, res) => {
+router.get('/logout', isLoggedIn, (req, res) => {
     req.logout()
     res.redirect('/')
 })
