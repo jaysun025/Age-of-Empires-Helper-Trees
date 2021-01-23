@@ -43,7 +43,7 @@ app.get('/', (req, res) => {
 })
 
 
-app.get('/profile/civilization', (req, res) => {
+app.get('/civilization', (req, res) => {
     let civilizationUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/civilization/1'
     axios.get(civilizationUrl)
     .then(data => {
