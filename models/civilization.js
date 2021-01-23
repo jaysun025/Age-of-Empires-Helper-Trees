@@ -16,7 +16,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   civilization.init({
-    userCivsId: DataTypes.INTEGER
+    userCivsId: DataTypes.INTEGER,
+    userCivsName: DataTypes.STRING  
   }, {
     sequelize,
     modelName: 'civilization',

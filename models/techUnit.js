@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   techUnit.init({
-    civilizatonId: DataTypes.INTEGER
+    civilizatonId: DataTypes.INTEGER,
+    civilizationName: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'techUnit',

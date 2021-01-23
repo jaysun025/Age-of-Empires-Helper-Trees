@@ -11,6 +11,9 @@ module.exports = {
       techUnitId: {
         type: Sequelize.INTEGER
       },
+      unitName: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

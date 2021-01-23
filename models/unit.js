@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   unit.init({
-    techUnitId: DataTypes.INTEGER
+    techUnitId: DataTypes.INTEGER,
+    techUnitName: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'unit',

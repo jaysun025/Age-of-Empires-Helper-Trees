@@ -11,6 +11,9 @@ module.exports = {
       userCivsId: {
         type: Sequelize.INTEGER
       },
+      civilizationName: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
