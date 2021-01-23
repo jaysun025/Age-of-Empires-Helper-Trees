@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   userCivs.init({
-    id: DataTypes.INTEGER
+    
   }, {
     sequelize,
     modelName: 'userCivs',
