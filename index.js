@@ -7,6 +7,7 @@ const passport = require('./config/ppConfig.js')
 const flash = require('connect-flash')
 const isLoggedIn = require('./middlewear/isLoggedIn.js')
 const axios = require('axios')
+let civilizationUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/civilizations'
 
 app.set('view engine', 'ejs')
 app.use(layouts)
@@ -45,7 +46,6 @@ app.get('/', (req, res) => {
 
 
 app.get('/profile', (req, res) => {
-    let civilizationUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/civilizations'
     axios.get(civilizationUrl)
     .then(data => {
         let civData = data.data.civilizations
@@ -54,6 +54,22 @@ app.get('/profile', (req, res) => {
     })
     .catch(error => {
         console.log(error)
+    })
+})
+
+app.get('/civilization', (req, res) => {
+    axios.get(civilizationUrl)
+    .then(data => {
+        let civData = data.data.civilizations
+        res.render('civilization', {civData:civData, currentUser: req.user})
+    })
+})
+
+app.get('/techUnit', (req, res) => {
+    axios.get(civilizationUrl)
+    .then(data => {
+        let civData = data.data.civilizations
+        res.render('techUnit', {civData:civData, currentUser: req.user})
     })
 })
 
