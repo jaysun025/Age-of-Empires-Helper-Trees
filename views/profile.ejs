@@ -1,6 +1,9 @@
 <h1><%= currentUser.name %> Choose a Civilization. Or pick one of your favorites</h1>
-<p>
- <%= civData %>
-</p>
+<p>Data:</p>
+<ul>
+   <% civData.forEach(civ => { %>
+      <li><%= civ.name %></li> 
+  <%  }) %>
+</ul>
 
 

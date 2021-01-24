@@ -38,14 +38,14 @@ router.get('/login',  (req, res) => {
 })
 router.post('/login', passport.authenticate('local', {
     failureRedirect: '/auth,login',
-    successRedirect: '/auth/profile',
+    successRedirect: '/profile',
     successFlash: 'You are now logged in',
     failureFlash: 'Invalid email or password'
 }))
-router.get('/profile', isLoggedIn, (req, res) => {
-    res.render('profile')
+// router.get('/profile', isLoggedIn, (req, res) => {
+//     res.render('profile')
     
-})
+// })
 
 
 router.get('/logout', isLoggedIn, (req, res) => {

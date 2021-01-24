@@ -37,20 +37,20 @@ app.use((req, res, next) => {
 })
 
 app.use('/auth', require('./controllers/auth.js'))
-// app.use('/views', require('./'))
+
 
 app.get('/', (req, res) => {
         res.render('home')
 })
 
 
-app.get('/civilization', (req, res) => {
+app.get('/profile', (req, res) => {
     let civilizationUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/civilizations'
     axios.get(civilizationUrl)
     .then(data => {
         let civData = data.data.civilizations
         console.log(civData)
-       res.send(civData)
+       res.render('profile', {civData:civData, currentUser: req.user})
     })
     .catch(error => {
         console.log(error)
