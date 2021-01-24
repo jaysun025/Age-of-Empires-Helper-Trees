@@ -1,8 +1,8 @@
 <h1><%= currentUser.name %> Choose a Civilization. Or pick one of your favorites</h1>
-<p>Data:</p>
-<ul>
+<p>Civilizations:</p>
+ <ul>
    <% civData.forEach(civ => { %>
-      <li><%= civ.name %></li> 
+      <li><a href='/civilization/<%= civ.name %>'><%= civ.name %></a></li> 
   <%  }) %>
 </ul>
 

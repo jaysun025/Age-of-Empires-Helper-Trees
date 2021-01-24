@@ -42,10 +42,7 @@ router.post('/login', passport.authenticate('local', {
     successFlash: 'You are now logged in',
     failureFlash: 'Invalid email or password'
 }))
-// router.get('/profile', isLoggedIn, (req, res) => {
-//     res.render('profile')
-    
-// })
+
 
 
 router.get('/logout', isLoggedIn, (req, res) => {
