@@ -37,6 +37,7 @@ app.use((req, res, next) => {
 })
 
 app.use('/auth', require('./controllers/auth.js'))
+// app.use('/views', require('./'))
 
 app.get('/', (req, res) => {
         res.render('home')
@@ -48,7 +49,8 @@ app.get('/civilization', (req, res) => {
     axios.get(civilizationUrl)
     .then(data => {
         let civData = data.data.civilizations
-       res.render(civData)
+        console.log(civData)
+       res.send(civData)
     })
     .catch(error => {
         console.log(error)
