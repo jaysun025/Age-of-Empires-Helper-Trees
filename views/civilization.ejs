@@ -1,2 +1,8 @@
 <h1>YOU HAVE CHOOSEN <%= civData.name %></h1>
 <h1>What Tech Tree Will You Follow</h1>
+<p>Technologies:</p>
+<ul>
+    <% techData.forEach(tech => { %>
+       <li><a href='/civilization/=?<%= tech.name %>'><%= tech.name %></a></li> 
+   <%  }) %>
+ </ul>
