@@ -44,10 +44,17 @@ router.get('/civilization', (req, res) => {
 })
 
 router.post('/login', passport.authenticate('local', {
-    failureRedirect: '/auth,login',
+    failureRedirect: '/login',
     successRedirect: '/profile',
     successFlash: 'You are now logged in',
     failureFlash: 'Invalid email or password'
+}))
+
+router.post('/civilization', passport.authenticate('local', {
+    failureRedirect: '/login',
+    successRedirect: '/civilization',
+    successFlash: 'You are still logged in',
+    failureFlash: 'Something went wrong hold your horses'
 }))
 
 
