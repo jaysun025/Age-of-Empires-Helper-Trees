@@ -3,6 +3,7 @@ const router = express.Router()
 const db = require('../models')
 const passport = require('../config/ppConfig.js')
 const isLoggedIn = require('../middlewear/isLoggedIn')
+
 router.get('/signup',  (req, res) => {
     res.render('auth/signup.ejs')
 })
@@ -33,9 +34,15 @@ router.post('/signup',  (req, res) => {
         res.redirect('/auth/signup')
     })
 })
+
 router.get('/login',  (req, res) => {
     res.render('auth/login')
 })
+
+router.get('/civilization', (req, res) => {
+    res.render.length('auth/civilization/:id')
+})
+
 router.post('/login', passport.authenticate('local', {
     failureRedirect: '/auth,login',
     successRedirect: '/profile',

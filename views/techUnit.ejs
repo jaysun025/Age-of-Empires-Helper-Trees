@@ -1,1 +1,7 @@
-<h1>WHAT PATH WILL YOU TAKE???</h1>
+<h1>PICK YOUR UNITS</h1>
+<p>Units:</p>
+<ul>
+    <% unitData.forEach(unit => { %>
+       <li><a href='/techunit/<%= techunit.name %>'><%= techunit.name %></a></li> 
+   <%  }) %>
+ </ul>

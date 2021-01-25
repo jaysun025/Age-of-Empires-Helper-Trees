@@ -7,14 +7,14 @@ const passport = require('./config/ppConfig.js')
 const flash = require('connect-flash')
 const isLoggedIn = require('./middlewear/isLoggedIn.js')
 const axios = require('axios')
-const civilizationUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/civilizations'
-const technologyUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/technologies'
+
+
 
 app.set('view engine', 'ejs')
 app.use(layouts)
 
 //body parser middlewear allows us to recieve form data in req.body 
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({ extended: false }))
 
 
 //session middlewear
@@ -42,43 +42,49 @@ app.use('/auth', require('./controllers/auth.js'))
 
 
 app.get('/', (req, res) => {
-        res.render('home')
+    res.render('home')
 })
 
 
 app.get('/profile', (req, res) => {
+    const civilizationUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/civilizations'
     axios.get(civilizationUrl)
-    .then(data => {
-        let civData = data.data.civilizations
-        console.log(civData)
-       res.render('profile', {civData:civData, currentUser: req.user})
-    })
-    .catch(error => {
-        console.log(error)
-    })
+        .then(data => {
+            let civData = data.data.civilizations
+            console.log(civData)
+            res.render('profile', { civData: civData, currentUser: req.user })
+        })
+        .catch(error => {
+            console.log(error)
+        })
 })
 
-app.get('/civilization', (req, res) => {
+app.get('/civilization/:id', (req, res) => {
+    const technologyUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/technologies'
     axios.get(technologyUrl)
-    .then(data => {
-        let techData = data.data.technologies
-        let civData = data.data.civilizations
-        res.render('civilization', {techData:techData, currentUser: req.user})
-    })
-    .catch(error => {
-        console.log(error)
-    })
+        .then(data => {
+            let techData = data.data.technologies
+            let civData = data.data.civilizations
+            console.log(techData)
+            res.render('civilization', { techData: techData, currentUser: req.user })
+        })
+        .catch(error => {
+            console.log(error)
+        })
 })
 
-app.get('/techUnit', (req, res) => {
-    axios.get(technologyUrl)
-    .then(data => {
-        let civData = data.data.civilizations
-        res.render('techUnit', {civData:civData, currentUser: req.user})
-    })
-    .catch(error => {
-        console.log(error)
-    })
+app.get('/techunit', (req, res) => {
+    const unitsUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/units'
+    axios.get(unitsUrl)
+        .then(data => {
+            let civData = data.data.civilizations
+            let techData = data.data.technnologies
+            let unitData = data.data.units
+            res.render('techunit', { unitData: unitData, currentUser: req.user })
+        })
+        .catch(error => {
+            console.log(error)
+        })
 })
 
 app.get('*', (req, res) => {

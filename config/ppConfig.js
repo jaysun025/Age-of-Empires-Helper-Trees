@@ -53,7 +53,7 @@ const findAndLogInUser = (email, password, doneCallback) => {
     // do stuff
 //}
 
-// we provide 'null' fi there's no error, or 'false' if there's no user or
+// we provide 'null' if there's no error, or 'false' if there's no user or
 //if the password is invalid (like they did inteh passport-local docs)
 const fieldsToCheck = {
     usernameField: 'email',
