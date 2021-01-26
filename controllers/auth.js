@@ -36,25 +36,17 @@ router.post('/signup',  (req, res) => {
 })
 
 router.get('/login',  (req, res) => {
+    console.log('here we are')
     res.render('auth/login')
 })
 
-router.get('/civilization', (req, res) => {
-    res.render.length('auth/civilization/:id')
-})
+
 
 router.post('/login', passport.authenticate('local', {
     failureRedirect: '/login',
     successRedirect: '/profile',
     successFlash: 'You are now logged in',
     failureFlash: 'Invalid email or password'
-}))
-
-router.post('/civilization', passport.authenticate('local', {
-    failureRedirect: '/login',
-    successRedirect: '/civilization',
-    successFlash: 'You are still logged in',
-    failureFlash: 'Something went wrong hold your horses'
 }))
 
 
