@@ -36,7 +36,6 @@ router.post('/signup',  (req, res) => {
 })
 
 router.get('/login',  (req, res) => {
-    console.log('here we are')
     res.render('auth/login')
 })
 

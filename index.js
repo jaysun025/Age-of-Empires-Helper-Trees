@@ -7,6 +7,7 @@ const passport = require('./config/ppConfig.js')
 const flash = require('connect-flash')
 const isLoggedIn = require('./middlewear/isLoggedIn.js')
 const axios = require('axios')
+const { Template } = require('ejs')
 
 
 
@@ -51,8 +52,7 @@ app.get('/profile', (req, res) => {
     axios.get(civilizationUrl)
         .then(data => {
             let civData = data.data.civilizations
-            let unitData = data.data.units
-            console.log(civData)
+            // console.log(civData)
             res.render('profile', { civData: civData, currentUser: req.user })
         })
         .catch(error => {
@@ -62,59 +62,25 @@ app.get('/profile', (req, res) => {
 
 app.get('/civilization/:id', (req, res) => {
     const technologyUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/technologies'
-    axios.get(technologyUrl)
-        .then(data => {
-            let techData = data.data.technologies
-            let civData = data.data.civilizations
-            console.log(techData)
-            res.render('civilization', { techData: techData, currentUser: req.user })
-        })
-        .catch(error => {
-            console.log(error)
-        })
-})
-
-app.get('/techunit', (req, res) => {
     const unitsUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/units'
-    axios.get(unitsUrl)
-        .then(data => {
-            let civData = data.data.civilizations
-            let techData = data.data.technnologies
-            let unitData = data.data.units
-            res.render('techunit', { unitData: unitData, currentUser: req.user })
-        })
+    let tech = () => {
+        return axios.get(technologyUrl)
+    }
+    let unit = () => {
+        return axios.get(unitsUrl)
+    }
+    Promise.all([tech(), unit()])
+    .then(function (results) {
+        const units = results[1].data.units
+        const technology = results[0].data.technologies
+        // res.send(results[0].data)
+        res.render('techUnit', {unitData: units, techData: technology})
+    })
         .catch(error => {
             console.log(error)
         })
 })
 
-// app.get('/profile', (req, res) => {
-//     const civilizationUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/civilizations'
-//     const unitsUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/units'
-//     const technologyUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/technologies'
-//     axios.all(civilizationUrl, unitsUrl, technologyUrl)
-//     .then(axios.spread((data => {
-//         const civData = data.data.civilization
-//         const unitData = data.data.unit
-//         const techData = data.data.technology
-//         console.log(civData)
-//         res.render('civilization', { civData: civData, unitData:unitData, techData: techData,  currentUser: req.user })
-//     })))
-    // .then
-    // axios.get(unitsUrl)
-    // .then(info => {
-    //     let unitData = info.data.units
-    //     console.log(unitData)
-    //     res.render('profile', { unitData: unitData, currentUser: req.user })
-    // })
-    // axios.get(technologyUrl)
-    // .then(dets => {
-    //     let techData = dets.data.technology
-    //     console.log(techData)
-    //     res.render('profile', { techData: techData, currentUser: req.user })
-    // })
-    // res.render('civilization', { techData: techData, currentUser: req.user })
-// })
 
 
 app.get('*', (req, res) => {

@@ -1,7 +1,11 @@
-<h1>PICK YOUR UNITS</h1>
-<p>Units:</p>
 <ul>
-    <% unitData.forEach(unit => { %>
-       <li><a href='/techunit/<%= techunit.name %>'><%= techunit.name %></a></li> 
-   <%  }) %>
- </ul>
+    <% unitData.forEach(units => { %>
+       <li><a href='/techUnit/<%= units.name %>'><%= units.name %></a></li> 
+    <%  }) %>
+</ul>
+<ul>
+  <% techData.forEach(techs => { %>
+     <li><a href='/techUnit/<%= techs.name %>'><%= techs.name %></a></li> 
+  <%  }) %>
+</ul>
+
