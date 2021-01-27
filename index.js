@@ -9,6 +9,7 @@ const isLoggedIn = require('./middlewear/isLoggedIn.js')
 const axios = require('axios')
 const { Template } = require('ejs')
 const router = require('./controllers/auth.js')
+const db = ('./models')
 
 
 
@@ -61,9 +62,10 @@ app.get('/profile', (req, res) => {
         })
 })
 
+const technologyUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/technologies'
+const unitsUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/units'
+
 app.get('/civilization/:id', (req, res) => {
-    const technologyUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/technologies'
-    const unitsUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/units'
     let tech = () => {
         return axios.get(technologyUrl)
     }
@@ -82,18 +84,14 @@ app.get('/civilization/:id', (req, res) => {
         })
 })
 
-app.get('/description/:id', (req, res) => {
-    axios.get(`https://age-of-empires-2-api.herokuapp.com/api/v1/units`)
-    .then(show => {
-        let showUnits = show.data
-        console.log(showUnits)
-        res.render('/description/:id', {
-            name: showUnits.name,
-            description: showUnits.description
-        })
-        .catch(error =>{
-            console.log(error)
-        })
+app.get('/techUnit/:id', (req, res) => {
+    axios.get(`https://age-of-empires-2-api.herokuapp.com/api/v1/unit/${req.params.id}`)
+    .then(apiResponse => {
+        let units = apiResponse.data
+        // console.log(units)
+        res.render('description', {units: units})
+    }).catch(error => {
+        console.log(error)
     })
 })
 

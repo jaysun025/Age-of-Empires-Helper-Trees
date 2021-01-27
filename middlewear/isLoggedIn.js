@@ -1,7 +1,7 @@
 module.exports = (req, res, next) => {
     if(!req.user) {
         req.flash('error', 'you must be logged in to access that page.')
-        res.redirect('/auth/login')
+        res.redirect('/login')
     } else {
         next()
     }
