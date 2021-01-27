@@ -8,6 +8,7 @@ const flash = require('connect-flash')
 const isLoggedIn = require('./middlewear/isLoggedIn.js')
 const axios = require('axios')
 const { Template } = require('ejs')
+const router = require('./controllers/auth.js')
 
 
 
@@ -81,6 +82,20 @@ app.get('/civilization/:id', (req, res) => {
         })
 })
 
+app.get('/description/:id', (req, res) => {
+    axios.get(`https://age-of-empires-2-api.herokuapp.com/api/v1/units`)
+    .then(show => {
+        let showUnits = show.data
+        console.log(showUnits)
+        res.render('/description/:id', {
+            name: showUnits.name,
+            description: showUnits.description
+        })
+        .catch(error =>{
+            console.log(error)
+        })
+    })
+})
 
 
 app.get('*', (req, res) => {
