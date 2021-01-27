@@ -88,7 +88,7 @@ app.get('/techUnit/:id', (req, res) => {
     axios.get(`https://age-of-empires-2-api.herokuapp.com/api/v1/unit/${req.params.id}`)
     .then(apiResponse => {
         let units = apiResponse.data
-        // console.log(units)
+        console.log(units)
         res.render('description', {units: units})
     }).catch(error => {
         console.log(error)
