@@ -86,10 +86,12 @@ app.get('/civilization/:id', (req, res) => {
 
 app.get('/techUnit/:id', (req, res) => {
     axios.get(`https://age-of-empires-2-api.herokuapp.com/api/v1/unit/${req.params.id}`)
+    axios.get(`https://age-of-empires-2-api.herokuapp.com/api/v1/technology/${req.params.id}`)
     .then(apiResponse => {
         let units = apiResponse.data
-        console.log(units)
-        res.render('description', {units: units})
+        let technology = apiResponse.data
+        // console.log(units)
+        res.render('description', {units: units, technology: technology})
     }).catch(error => {
         console.log(error)
     })
