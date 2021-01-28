@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt')
 const {
   Model
 } = require('sequelize');
+const favovorites = require('./favovorites');
 module.exports = (sequelize, DataTypes) => {
   class user extends Model {
     /**
@@ -14,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.user.hasMany(models.userCivs)
+      models.user.hasMany(models.favovorites)
     }
   };
   user.init({

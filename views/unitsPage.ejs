@@ -1,0 +1,30 @@
+<h1>Unit Description</h1>
+<label><h2><%= units.name %></h2></label>
+
+
+<% let madeInSplit = units.created_in.split('/') %>
+<% let madeIn = madeInSplit[madeInSplit.length -1] %>
+
+<ul>
+  <li>Description<p><%= units.description %></p></li>
+  <li>Age<p><%= units.age %></p></li>
+  <li>Created In<p><%= madeIn %></p></li>
+  <li>Cost<p><%= units.cost %></p></li>
+  <li>Build Time In Seconds<p><%= units.build_time %></p></li>
+  <li>Hit Points<p><%= units.hit_points %></p></li>
+  <li>Range<p><%= units.range %></p></li>
+  <li>Attack<p><%= units.attack %></p></li>
+  <li>Attack Bonus<p><%= units.attack_bonus %></p></li>
+  <li>Armor<p><%= units.armor %></p></li>
+  <li>Armor Bonus<p><%= units.armor_bonus %></p></li>
+  <li>Expansion<p><%= units.expansion %></p></li>
+  <li>Reload Time<p><%= units.reload_time %></p></li>
+  <li>Attack Delay<p><%= units.attack_delay %></p></li>
+  <li>Movement Rate<p><%= units.movmeent_range %></p></li>
+  <li>Line Of Sight<p><%= units.line_of_sight %></p></li>
+  <li>Search Radius<p><%= units.search_radius %></p></li> 
+  <li>Blast Radius<p><%= units.blast_radius %></p></li> 
+</ul>
+
+<input type='submit' value='Favorites'>
+

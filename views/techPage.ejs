@@ -1,0 +1,24 @@
+<h1>Tech or Unit Description</h1>
+<label><h2><%= technology.name %></h2>
+
+  <% let madeInSplit = technology.develops_in.split('/') %>
+  <% let madeIn = madeInSplit[madeInSplit.length -1] %>
+
+<ul>
+  <li>Description<p><%= technology.description %></p></li>
+  <li>Age<p><%= technology.age %></p></li>
+  <li>Develops In<p><%= madeIn %></p></li>
+  <li>Applies To<p><%= technology.applies_to %></p></li>
+  <li>Cost<p><%= technology.cost[0] %></p></li>
+  <li>Build Time In Seconds<p><%= technology.build_time %></p></li>
+  <li>Hit Points<p><%= technology.hit_points %></p></li>
+  <li>Range<p><%= technology.range %></p></li>
+  <li>Attack<p><%= technology.attack %></p></li>
+  <li>Armor<p><%= technology.armor %></p></li>
+  <li>Accuracy<p><%= technology.accuracy %></p></li>
+  <li>Expansion<p><%= technology.expansion %></p></li>
+</ul>
+<form method='POST' action='/favovorites'>
+<input hidden type='text' name='name' value='<%= technology.name %>' />
+<button type='submit'>Favovorites</button>
+</form>

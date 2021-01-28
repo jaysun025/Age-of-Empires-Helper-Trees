@@ -10,6 +10,8 @@ const axios = require('axios')
 const { Template } = require('ejs')
 const router = require('./controllers/auth.js')
 const db = ('./models')
+const favovorites = require('./models/favovorites')
+
 
 
 
@@ -49,7 +51,7 @@ app.get('/', (req, res) => {
 })
 
 
-app.get('/profile', (req, res) => {
+app.get('/profile', isLoggedIn, (req, res) => {
     const civilizationUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/civilizations'
     axios.get(civilizationUrl)
         .then(data => {
@@ -65,7 +67,7 @@ app.get('/profile', (req, res) => {
 const technologyUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/technologies'
 const unitsUrl = 'https://age-of-empires-2-api.herokuapp.com/api/v1/units'
 
-app.get('/civilization/:id', (req, res) => {
+app.get('/civilization/:id', isLoggedIn, (req, res) => {
     let tech = () => {
         return axios.get(technologyUrl)
     }
@@ -84,19 +86,56 @@ app.get('/civilization/:id', (req, res) => {
         })
 })
 
-app.get('/techUnit/:id', (req, res) => {
+app.get('/techUnit/:id', isLoggedIn, (req, res) => {
     axios.get(`https://age-of-empires-2-api.herokuapp.com/api/v1/unit/${req.params.id}`)
     axios.get(`https://age-of-empires-2-api.herokuapp.com/api/v1/technology/${req.params.id}`)
     .then(apiResponse => {
         let units = apiResponse.data
         let technology = apiResponse.data
         // console.log(units)
-        res.render('description', {units: units, technology: technology})
+        res.render('techPage', {technology: technology})
     }).catch(error => {
         console.log(error)
     })
 })
 
+app.get('/unit/:id', isLoggedIn, (req, res) => {
+    axios.get(`https://age-of-empires-2-api.herokuapp.com/api/v1/unit/${req.params.id}`)
+    .then(apiResponse => {
+        let units = apiResponse.data
+        // console.log(units)
+        res.render('unitsPage', {units: units})
+        // res.send(units)
+    }).catch(error => {
+        console.log(error)
+    })
+})
+
+app.get('/tech/:id', isLoggedIn, (req, res) => {
+    axios.get(`https://age-of-empires-2-api.herokuapp.com/api/v1/technology/${req.params.id}`)
+    .then(apiResponse => {
+        let technology = apiResponse.data
+        // console.log(units)
+        res.render('techPage', {technology: technology})
+    }).catch(error => {
+        console.log(error)
+    })
+})
+
+app.post('/favovorites', isLoggedIn, (req, res) => {
+    // console.log(req.body)
+    // console.log(req.user)
+    db.favovorites.findOrCreate({
+        
+            name: req.body.name,
+            userId: req.user.id
+        
+    }).then(newFav =>{ console.log(newFav)
+        res.redirect('/profile')
+    }).catch(error => {
+        console.log(error)
+    })
+})
 
 app.get('*', (req, res) => {
     res.render('404.ejs')
