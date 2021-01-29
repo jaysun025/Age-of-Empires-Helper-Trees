@@ -123,7 +123,6 @@ app.post('/favovorites', isLoggedIn, (req, res) => {
         
         name: req.body.name,
         userId: req.user.id
-        
     }).then(newFav =>{ console.log(newFav)
         res.redirect('/profile')
     }).catch(error => {
