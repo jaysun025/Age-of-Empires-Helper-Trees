@@ -1,10 +1,11 @@
-<h1>Technology and Units</h1>
+<h1>Units</h1>
 
 <ul>
     <% unitData.forEach(units => { %>
        <li><a href='/unit/<%= units.name %>'><%= units.name %></a></li> 
     <%  }) %>
 </ul>
+<h1>Technology</h1>
 <ul>
   <% techData.forEach(techs => { %>
      <li><a href='/tech/<%= techs.name %>' name ='<%= techs.name %>'><%= techs.name %></a></li> 

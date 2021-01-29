@@ -1,0 +1,7 @@
+<h1>Favovorites</h1>
+<% favovorites.forEach(favovorite => { %>
+    <form method='POST' action='/delete/<%- favovorite.id %>'>
+        <div><%= favovorite.name %></div>
+        <button type='submit'>Delete</button>
+    </form>
+<% }) %>

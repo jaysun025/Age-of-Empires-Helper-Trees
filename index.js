@@ -118,15 +118,42 @@ app.get('/tech/:id', isLoggedIn, (req, res) => {
     })
 })
 
+app.get('/favovorites', isLoggedIn, (req, res) => {
+    // console.log('👿')
+
+    db.favovorites.findAll({
+
+        // where: {
+        //     id: req.user.id
+        // }
+    }).then((favovorites => {
+        // console.log(favovorites)
+        res.render('favovorites', {favovorites})
+    }))
+})
+
 app.post('/favovorites', isLoggedIn, (req, res) => {
-    db.favovorites.findOrCreate({
-        
+    db.favovorites.create({
         name: req.body.name,
         userId: req.user.id
-    }).then(newFav =>{ console.log(newFav)
-        res.redirect('/profile')
+     }).then(newFav =>{ console.log(newFav)
+        res.redirect('favovorites')
+        // res.redirect('/profile')
     }).catch(error => {
         console.log(error)
+    })
+})
+
+app.post('/delete/:id', isLoggedIn, (req, res) => {
+    // console.log('you hit the delete route')
+    console.log(req.params.id)
+    db.favovorites.destroy({
+        where: {
+            id: req.params.id
+        }
+    }).then(() => {
+        console.log('deleted entry')
+        res.redirect('/favovorites')
     })
 })
 
