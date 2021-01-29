@@ -9,7 +9,7 @@ const isLoggedIn = require('./middlewear/isLoggedIn.js')
 const axios = require('axios')
 const { Template } = require('ejs')
 const router = require('./controllers/auth.js')
-const db = ('./models')
+const db = require('./models')
 const favovorites = require('./models/favovorites')
 
 
@@ -56,7 +56,6 @@ app.get('/profile', isLoggedIn, (req, res) => {
     axios.get(civilizationUrl)
         .then(data => {
             let civData = data.data.civilizations
-            // console.log(civData)
             res.render('profile', { civData: civData, currentUser: req.user })
         })
         .catch(error => {
@@ -78,7 +77,6 @@ app.get('/civilization/:id', isLoggedIn, (req, res) => {
     .then(function (results) {
         const units = results[1].data.units
         const technology = results[0].data.technologies
-        // res.send(results[0].data)
         res.render('techUnit', {unitData: units, techData: technology})
     })
         .catch(error => {
@@ -98,7 +96,6 @@ app.get('/techUnit/:id', isLoggedIn, (req, res) => {
         console.log(error)
     })
 })
-
 app.get('/unit/:id', isLoggedIn, (req, res) => {
     axios.get(`https://age-of-empires-2-api.herokuapp.com/api/v1/unit/${req.params.id}`)
     .then(apiResponse => {
@@ -110,7 +107,6 @@ app.get('/unit/:id', isLoggedIn, (req, res) => {
         console.log(error)
     })
 })
-
 app.get('/tech/:id', isLoggedIn, (req, res) => {
     axios.get(`https://age-of-empires-2-api.herokuapp.com/api/v1/technology/${req.params.id}`)
     .then(apiResponse => {
@@ -123,12 +119,10 @@ app.get('/tech/:id', isLoggedIn, (req, res) => {
 })
 
 app.post('/favovorites', isLoggedIn, (req, res) => {
-    // console.log(req.body)
-    // console.log(req.user)
     db.favovorites.findOrCreate({
         
-            name: req.body.name,
-            userId: req.user.id
+        name: req.body.name,
+        userId: req.user.id
         
     }).then(newFav =>{ console.log(newFav)
         res.redirect('/profile')

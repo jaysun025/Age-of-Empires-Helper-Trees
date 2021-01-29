@@ -26,5 +26,8 @@
   <li>Blast Radius<p><%= units.blast_radius %></p></li> 
 </ul>
 
-<input type='submit' value='Favorites'>
+<form method='POST' action='/favovorites'>
+  <input hidden type='text' name='name' value='<%= units.name %>' />
+  <button type='submit'>Favovorites</button>
+  </form>
 
